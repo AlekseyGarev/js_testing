@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <title>Card Validator</title>
+</head>
+<body>
+
+    <div id="widget-container" class="card-validator">
+    
+        <ul class="card-types">
+            <li><div class="card-icon visa" data-system="visa"></div></li>
+            <li><div class="card-icon mastercard" data-system="mastercard"></div></li>
+            <li><div class="card-icon amex" data-system="amex"></div></li>
+            <li><div class="card-icon discover" data-system="discover"></div></li>
+            <li><div class="card-icon jcb" data-system="jcb"></div></li>
+            <li><div class="card-icon mir" data-system="mir"></div></li>
+        </ul>
+    
+        <form id="validator-form" novalidate>
+            <div class="input-group">
+                <input 
+                    type="text" 
+                    id="card-number" 
+                    class="card-input" 
+                    placeholder="Enter card number"
+                    maxlength="19"
+                >
+                <button type="submit" class="validate-btn">Click to Validate</button>
+            </div>
+        </form>
+    </div>
+        </form>
+    </div>
+</body>
+</html>
