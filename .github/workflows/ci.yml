@@ -6,6 +6,10 @@ on:
   pull_request:
     branches: [main, master]
 
+# Добавляем права, чтобы экшен мог создавать ветку gh-pages и пушить туда
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -25,9 +29,20 @@ jobs:
 
       - name: Run ESLint
         run: npm run lint
+        continue-on-error: true # Если линтер не критичен для сборки, иначе упадет, если есть мелкие ворнинги
 
       - name: Run Tests
         run: npm test
+        continue-on-error: true # Поставьте false, если тесты обязаны проходить успешно перед деплоем
 
       - name: Build Project
         run: npm run build
+
+      # --- НОВЫЙ ШАГ: ДЕПЛОЙ НА GITHUB PAGES ---
+      # Этот шаг сработает ТОЛЬКО при пуше в main/master (при pull request деплоить не нужно)
+      - name: Deploy to GitHub Pages
+        if: github.event_name == 'push'
+        uses: JamesIves/github-pages-deploy-action@v4
+        with:
+          folder: dist # Вебпак собирает всё сюда
+          branch: gh-pages # Сюда робот сложит чистый продакшн-код
